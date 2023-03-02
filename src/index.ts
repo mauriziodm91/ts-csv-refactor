@@ -1,9 +1,9 @@
-import { CsvFileReader } from './CsvFileReader'
+import { MatchReader } from './MatchReader'
 import { MatchResult } from './MatchResult'
 import path from 'path'
 
 const file = path.join(__dirname, '..', 'assets', 'football.csv')
-const csvFile = new CsvFileReader(file)
+const csvFile = new MatchReader(file)
 
 csvFile.read()
 

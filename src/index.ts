@@ -1,20 +1,10 @@
-import { CsvFileReader } from './CsvFileReader'
-import { MatchResult } from './MatchResult'
 import path from 'path'
+import { MatchReader } from './MatchReader'
+import { Summary } from './Summary'
 
 const file = path.join(__dirname, '..', 'assets', 'football.csv')
-const csvFile = new CsvFileReader(file)
+const matchReader = MatchReader.fromCsv(file)
+const summary = Summary.analisisFromWinsAndHtml('Man United')
 
-csvFile.read()
-
-let manUnitedWins = 0
-
-for (let match of csvFile.data) {
-  if (match[1] === 'Man United' && match[5] === MatchResult.HomeWin) {
-    manUnitedWins++
-  } else if (match[2] === 'Man United' && match[5] === MatchResult.Awaywin) {
-    manUnitedWins++
-  }
-}
-
-console.log(`Man United won ${manUnitedWins} matches`)
+matchReader.load()
+summary.buildAndPrintReport(matchReader.matches)
